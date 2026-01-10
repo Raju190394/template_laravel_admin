@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DASHMIN - Welcome</title>
+    <title>Test - Welcome</title>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
 </head>
 <body>
     <div class="welcome-card">
-        <h1 class="text-primary mb-4"><i class="fa fa-hashtag me-2"></i>DASHMIN</h1>
+        <h1 class="text-primary mb-4"><i class="fa fa-hashtag me-2"></i>Test</h1>
         <h2 class="mb-4">Modern Laravel Admin Panel</h2>
         <p class="text-muted mb-4">A powerful and responsive admin dashboard built with Laravel, Blade, and Bootstrap.</p>
         

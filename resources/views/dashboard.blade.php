@@ -1,204 +1,126 @@
 @extends('layouts.admin')
 
 @section('content')
-<!-- Sale & Revenue Start -->
-<div class="container-fluid pt-4 px-4">
+<!-- Stats Cards Start -->
+<div class="container-xxl pt-2 px-2">
     <div class="row g-4">
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-line fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-white rounded p-4 border">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                        <i class="fa fa-users fa-2x text-primary"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-muted small">Total Users</p>
+                        <h4 class="mb-0 fw-bold">{{ $users }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-white rounded p-4 border">
+                <div class="d-flex align-items-center">
+                    <div class="bg-success bg-opacity-10 rounded p-3 me-3">
+                        <i class="fa fa-user-graduate fa-2x text-success"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-muted small">Total Students</p>
+                        <h4 class="mb-0 fw-bold">{{ $students }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-area fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-white rounded p-4 border">
+                <div class="d-flex align-items-center">
+                    <div class="bg-info bg-opacity-10 rounded p-3 me-3">
+                        <i class="fa fa-book fa-2x text-info"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-muted small">Total Courses</p>
+                        <h4 class="mb-0 fw-bold">{{ $courses }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Sale & Revenue End -->
+<!-- Stats Cards End -->
 
-
-<!-- Sales Chart Start -->
-<div class="container-fluid pt-4 px-4">
+<!-- Quick Actions Start -->
+<div class="container-xxl pt-2 px-2">
     <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Worldwide Sales</h6>
-                    <a href="">Show All</a>
+        <div class="col-12">
+            <div class="bg-white rounded p-4 border">
+                <h6 class="mb-4 fw-bold"><i class="fa fa-bolt me-2 text-primary"></i>Quick Actions</h6>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <a href="{{ route('students.create') }}" class="btn btn-outline-primary w-100">
+                            <i class="fa fa-user-plus me-2"></i>Add Student
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ route('master.courses.create') }}" class="btn btn-outline-success w-100">
+                            <i class="fa fa-book-open me-2"></i>Add Course
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ route('users.create') }}" class="btn btn-outline-info w-100">
+                            <i class="fa fa-user-shield me-2"></i>Add User
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary w-100">
+                            <i class="fa fa-cog me-2"></i>Settings
+                        </a>
+                    </div>
                 </div>
-                <canvas id="worldwide-sales"></canvas>
-            </div>
-        </div>
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Sales & Revenue</h6>
-                    <a href="">Show All</a>
-                </div>
-                <canvas id="salse-revenue"></canvas>
             </div>
         </div>
     </div>
 </div>
-<!-- Sales Chart End -->
+<!-- Quick Actions End -->
 
-
-<!-- Recent Sales Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-light text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Recent Salse</h6>
-            <a href="">Show All</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                <thead>
-                    <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Invoice</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                </tbody>
-            </table>
+<!-- Recent Students Start -->
+<div class="container-xxl pt-2 px-2">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-white rounded p-4 border">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0 fw-bold"><i class="fa fa-clock me-2 text-primary"></i>Recent Students</h6>
+                    <a href="{{ route('students.index') }}" class="btn btn-sm btn-primary">View All</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($recentStudents as $student)
+                            <tr>
+                                <td class="fw-bold">{{ $student->name }}</td>
+                                <td>{{ $student->email }}</td>
+                                <td>{{ $student->phone ?? '-' }}</td>
+                                <td><span class="badge bg-light text-dark border">{{ $student->created_at->diffForHumans() }}</span></td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    <i class="fa fa-info-circle me-1"></i> No recent students found
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!-- Recent Sales End -->
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Worldwide Sales Chart
-    var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    var myChart1 = new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
-            datasets: [{
-                    label: "USA",
-                    data: [15, 30, 55, 65, 60, 80, 95],
-                    backgroundColor: "rgba(0, 156, 255, .7)"
-                },
-                {
-                    label: "UK",
-                    data: [8, 35, 40, 60, 70, 55, 75],
-                    backgroundColor: "rgba(0, 156, 255, .5)"
-                },
-                {
-                    label: "AU",
-                    data: [12, 25, 45, 55, 65, 70, 60],
-                    backgroundColor: "rgba(0, 156, 255, .3)"
-                }
-            ]
-            },
-        options: {
-            responsive: true
-        }
-    });
-
-
-    // Salse & Revenue Chart
-    var ctx2 = $("#salse-revenue").get(0).getContext("2d");
-    var myChart2 = new Chart(ctx2, {
-        type: "line",
-        data: {
-            labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
-            datasets: [{
-                    label: "Salse",
-                    data: [15, 30, 55, 45, 70, 65, 85],
-                    backgroundColor: "rgba(0, 156, 255, .5)",
-                    fill: true
-                },
-                {
-                    label: "Revenue",
-                    data: [99, 135, 170, 130, 190, 180, 270],
-                    backgroundColor: "rgba(0, 156, 255, .3)",
-                    fill: true
-                }
-            ]
-        },
-        options: {
-            responsive: true
-        }
-    });
-});
-</script>
+<!-- Recent Students End -->
 @endsection

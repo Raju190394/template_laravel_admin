@@ -20,7 +20,7 @@ class ClassesController extends Controller
 
     public function index()
     {
-        $classes = Classes::latest()->paginate(10);
+        $classes = $this->classesService->getClasses();
         return view('master.classes.index', compact('classes'));
     }
 

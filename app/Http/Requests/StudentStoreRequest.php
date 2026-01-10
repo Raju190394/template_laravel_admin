@@ -20,6 +20,7 @@ class StudentStoreRequest extends FormRequest
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'dob' => 'nullable|date',
             'class_id' => 'required|exists:classes,id',
+            'parent_id' => 'nullable|exists:users,id',
         ];
     }
 }

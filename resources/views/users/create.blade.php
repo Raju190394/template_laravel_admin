@@ -35,6 +35,18 @@
                         @enderror
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+                            <option value="parent" {{ old('role') == 'parent' ? 'selected' : '' }}>Parent</option>
+                        </select>
+                        <label for="role">User Role</label>
+                        @error('role')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="row g-2">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">

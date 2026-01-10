@@ -32,9 +32,21 @@ class StudentService
             ->rawColumns(['action', 'class', 'photo'])
             ->make(true);
     }
+    
     public function getAllStudents()
     {
         return Student::all();
+    }
+
+    /**
+     * Get data needed for student create/edit forms
+     */
+    public function getFormData()
+    {
+        return [
+            'classes' => \App\Models\Classes::active()->get(),
+            'parents' => \App\Models\User::where('role', 'parent')->get(),
+        ];
     }
 
     public function createStudent(array $data)

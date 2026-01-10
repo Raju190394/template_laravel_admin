@@ -36,6 +36,7 @@ class UserService
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'] ?? 'admin',
         ]);
     }
 
@@ -44,6 +45,7 @@ class UserService
         $userData = [
             'name' => $data['name'],
             'email' => $data['email'],
+            'role' => $data['role'] ?? $user->role,
         ];
 
         if (!empty($data['password'])) {

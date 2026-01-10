@@ -6,6 +6,11 @@ use App\Models\Classes;
 
 class ClassesService
 {
+    public function getClasses($paginate = 10)
+    {
+        return \App\Models\Classes::latest()->paginate($paginate);
+    }
+
     public function createClass(array $data)
     {
         return Classes::create($data);

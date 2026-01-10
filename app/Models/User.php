@@ -51,4 +51,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Staff::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'parent_id');
+    }
+
+    public function isAdmin() { return $this->role === 'admin'; }
+    public function isStaff() { return $this->role === 'staff'; }
+    public function isParent() { return $this->role === 'parent'; }
 }

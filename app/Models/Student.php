@@ -16,11 +16,22 @@ class Student extends Model
         'photo',
         'dob',
         'class_id',
+        'parent_id',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
 
     public function class()
     {
         return $this->belongsTo(Classes::class, 'class_id');
+    }
+
+    public function studentSessions()
+    {
+        return $this->hasMany(StudentSession::class);
     }
 
     public function scopeActive($query)

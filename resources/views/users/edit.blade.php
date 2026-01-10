@@ -37,6 +37,18 @@
                         @enderror
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Staff</option>
+                            <option value="parent" {{ old('role', $user->role) == 'parent' ? 'selected' : '' }}>Parent</option>
+                        </select>
+                        <label for="role">User Role</label>
+                        @error('role')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="alert alert-info py-2 mb-3">
                         <i class="fa fa-info-circle me-1"></i> Leave password fields blank to keep the current password.
                     </div>

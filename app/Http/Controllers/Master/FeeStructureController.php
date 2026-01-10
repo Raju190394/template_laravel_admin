@@ -21,14 +21,14 @@ class FeeStructureController extends Controller
 
     public function index()
     {
-        $feeStructures = FeeStructure::with('class')->latest()->paginate(10);
+        $feeStructures = $this->feeStructureService->getFeeStructures();
         return view('master.fee-structures.index', compact('feeStructures'));
     }
 
     public function create()
     {
-        $classes = Classes::active()->select('class_name')->distinct()->get();
-        return view('master.fee-structures.create', compact('classes'));
+        $formData = $this->feeStructureService->getFormData();
+        return view('master.fee-structures.create', $formData);
     }
 
     public function store(FeeStructureStoreRequest $request)
@@ -51,9 +51,9 @@ class FeeStructureController extends Controller
 
     public function edit(FeeStructure $feeStructure)
     {
-        $classes = Classes::active()->select('class_name')->distinct()->get();
+        $formData = $this->feeStructureService->getFormData();
         $currentClassName = $feeStructure->class->class_name ?? '';
-        return view('master.fee-structures.edit', compact('feeStructure', 'classes', 'currentClassName'));
+        return view('master.fee-structures.edit', array_merge(compact('feeStructure', 'currentClassName'), $formData));
     }
 
     public function update(FeeStructureUpdateRequest $request, FeeStructure $feeStructure)

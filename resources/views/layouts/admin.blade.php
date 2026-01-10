@@ -470,9 +470,14 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    @if(Auth::user()->role === 'parent')
+                        <a href="{{ route('parent.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('parent.dashboard') ? 'active' : '' }}"><i class="fa fa-home me-2"></i>Parent Dashboard</a>
+                        <a href="{{ route('mailbox.index') }}" class="nav-item nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa fa-envelope me-2"></i>Mailbox</a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    @endif
                     
-                    <div class="nav-item dropdown">
+                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'staff')
                         <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('master.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
                             <i class="fa fa-cog me-2"></i>Master Module
                         </a>
@@ -481,6 +486,16 @@
                             <a href="{{ route('master.classes.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.classes.*') ? 'active' : '' }}">Classes</a>
                             <a href="{{ route('master.fee-structures.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.fee-structures.*') ? 'active' : '' }}">Fee Structure</a>
                             <a href="{{ route('master.courses.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.courses.*') ? 'active' : '' }}">Courses</a>
+                            <a href="{{ route('master.academic-sessions.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.academic-sessions.*') ? 'active' : '' }}">Academic Sessions</a>
+                            <a href="{{ route('timetable.index') }}" class="dropdown-item nav-link {{ request()->routeIs('timetable.*') ? 'active' : '' }}">Time Table / Routine</a>
+                            <a href="{{ route('master.promotion.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.promotion.*') ? 'active' : '' }}">Promotion</a>
+                            <hr class="dropdown-divider">
+                            <a href="{{ route('student-attendance.index') }}" class="dropdown-item nav-link {{ request()->routeIs('student-attendance.index') ? 'active' : '' }}">Daily Attendance</a>
+                            <a href="{{ route('student-attendance.report') }}" class="dropdown-item nav-link {{ request()->routeIs('student-attendance.report') ? 'active' : '' }}">Attendance Report</a>
+                            <hr class="dropdown-divider">
+                            <a href="{{ route('master.exams.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.exams.*') || (request()->routeIs('exams.*') && !request()->routeIs('exams.reports.*')) ? 'active' : '' }}">Exams & Marks</a>
+                            <a href="{{ route('exams.reports.index') }}" class="dropdown-item nav-link {{ request()->routeIs('exams.reports.*') ? 'active' : '' }}">Exam Reports</a>
+                            <a href="{{ route('master.notices.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.notices.*') ? 'active' : '' }}">Notice Board</a>
                         </div>
                     </div>
 
@@ -505,9 +520,27 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('users.index') }}" class="nav-item nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa fa-user me-2"></i>Users</a>
-                    <a href="{{ route('students.index') }}" class="nav-item nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}"><i class="fa fa-user-graduate me-2"></i>Students</a>
-                    <a href="{{ route('mailbox.index') }}" class="nav-item nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa fa-envelope me-2"></i>Mailbox</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('library.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
+                            <i class="fa fa-book me-2"></i>Library Module
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0 ps-4 py-0 {{ request()->routeIs('library.*') ? 'show' : '' }}">
+                            <a href="{{ route('library.books.index') }}" class="dropdown-item nav-link {{ request()->routeIs('library.books.*') ? 'active' : '' }}">Book List</a>
+                            <a href="{{ route('library.issues.index') }}" class="dropdown-item nav-link {{ request()->routeIs('library.issues.*') ? 'active' : '' }}">Issue / Return</a>
+                        </div>
+                    </div>
+
+                    @endif
+
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('users.index') }}" class="nav-item nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa fa-user me-2"></i>Users</a>
+                        <a href="{{ route('students.index') }}" class="nav-item nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}"><i class="fa fa-user-graduate me-2"></i>Students</a>
+                        <a href="{{ route('certificates.index') }}" class="nav-item nav-link {{ request()->routeIs('certificates.*') ? 'active' : '' }}"><i class="fa fa-certificate me-2"></i>Certificates</a>
+                    @endif
+
+                    @if(Auth::user()->role !== 'parent')
+                        <a href="{{ route('mailbox.index') }}" class="nav-item nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa fa-envelope me-2"></i>Mailbox</a>
+                    @endif
                 </div>
             </nav>
         </div>

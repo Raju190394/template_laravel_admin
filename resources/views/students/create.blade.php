@@ -40,6 +40,20 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select @error('parent_id') is-invalid @enderror" id="parent_id" name="parent_id">
+                            <option value="">Select Parent (Optional)</option>
+                            @foreach($parents ?? [] as $parent)
+                                <option value="{{ $parent->id }}" {{ old('parent_id') == $parent->id ? 'selected' : '' }}>
+                                    {{ $parent->name }} ({{ $parent->email }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="parent_id">Linked Parent Account</label>
+                        @error('parent_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="name@example.com" required>

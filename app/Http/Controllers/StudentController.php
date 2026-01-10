@@ -29,13 +29,13 @@ class StudentController extends Controller
 
     public function create()
     {
-        $classes = Classes::active()->get();
-        return view('students.create', compact('classes'));
+        $formData = $this->studentService->getFormData();
+        return view('students.create', $formData);
     }
 
     public function store(StudentStoreRequest $request)
     {
-        $this->studentService->createStudent($request->validated());
+        $this->studentService->createStudent($request->all());
 
         return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
@@ -47,13 +47,13 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        $classes = Classes::active()->get();
-        return view('students.edit', compact('student', 'classes'));
+        $formData = $this->studentService->getFormData();
+        return view('students.edit', array_merge(compact('student'), $formData));
     }
 
     public function update(StudentUpdateRequest $request, Student $student)
     {
-        $this->studentService->updateStudent($student, $request->validated());
+        $this->studentService->updateStudent($student, $request->all());
 
         return redirect()->route('students.index')->with('success', 'Student updated successfully.');
     }

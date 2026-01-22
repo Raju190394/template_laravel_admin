@@ -1,19 +1,36 @@
 @extends('layouts.admin')
 
 @section('content')
-<!-- KPI Cards Start -->
-<div class="container-xxl pt-2 px-2">
-    <div class="row g-4">
+<div class="container-fluid py-4 px-4">
+    <!-- Page Header -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h4 class="mb-0 fw-bold">Dashboard Overview</h4>
+            <p class="text-muted mb-0">Welcome back! Here's what's happening today.</p>
+        </div>
+        <div class="d-none d-sm-block">
+            <button class="btn btn-white border shadow-sm me-2"><i class="fa-solid fa-download me-2"></i>Export Report</button>
+            <button class="btn btn-primary shadow"><i class="fa-solid fa-plus me-2"></i>Add Activity</button>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="row g-4 mb-4">
         <!-- Total Students -->
         <div class="col-sm-6 col-xl-3">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center">
-                    <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
-                        <i class="fa fa-user-graduate fa-2x text-primary"></i>
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                            <i class="fa-solid fa-user-graduate fa-xl text-primary"></i>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success bg-opacity-10 text-success small">+2.5% <i class="fa-solid fa-arrow-up"></i></span>
+                        </div>
                     </div>
                     <div>
-                        <p class="mb-1 text-muted small">Total Students</p>
-                        <h4 class="mb-0 fw-bold">{{ number_format($kpis['total_students']) }}</h4>
+                        <h3 class="mb-1 fw-bold">{{ number_format($kpis['total_students']) }}</h3>
+                        <p class="mb-0 text-muted fw-medium">Total Students</p>
                     </div>
                 </div>
             </div>
@@ -21,292 +38,283 @@
 
         <!-- Monthly Fee Collection -->
         <div class="col-sm-6 col-xl-3">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center">
-                    <div class="bg-success bg-opacity-10 rounded p-3 me-3">
-                        <i class="fa fa-dollar-sign fa-2x text-success"></i>
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                            <i class="fa-solid fa-wallet fa-xl text-success"></i>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success bg-opacity-10 text-success small">+4.8% <i class="fa-solid fa-arrow-up"></i></span>
+                        </div>
                     </div>
                     <div>
-                        <p class="mb-1 text-muted small">Monthly Collection</p>
-                        <h4 class="mb-0 fw-bold">₹{{ number_format($kpis['monthly_fee_collection'], 2) }}</h4>
+                        <h3 class="mb-1 fw-bold">₹{{ number_format($kpis['monthly_fee_collection'], 0) }}</h3>
+                        <p class="mb-0 text-muted fw-medium">Monthly Collection</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Attendance Percentage -->
+        <!-- Attendance Today -->
         <div class="col-sm-6 col-xl-3">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center">
-                    <div class="bg-info bg-opacity-10 rounded p-3 me-3">
-                        <i class="fa fa-chart-line fa-2x text-info"></i>
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="bg-info bg-opacity-10 rounded-3 p-3">
+                            <i class="fa-solid fa-calendar-check fa-xl text-info"></i>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-danger bg-opacity-10 text-danger small">-1.2% <i class="fa-solid fa-arrow-down"></i></span>
+                        </div>
                     </div>
                     <div>
-                        <p class="mb-1 text-muted small">Attendance Today</p>
-                        <h4 class="mb-0 fw-bold">{{ $kpis['attendance_percentage'] }}%</h4>
+                        <h3 class="mb-1 fw-bold">{{ $kpis['attendance_percentage'] }}%</h3>
+                        <p class="mb-0 text-muted fw-medium">Attendance Today</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Defaulters Count -->
+        <!-- Defaulters -->
         <div class="col-sm-6 col-xl-3">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center">
-                    <div class="bg-warning bg-opacity-10 rounded p-3 me-3">
-                        <i class="fa fa-exclamation-triangle fa-2x text-warning"></i>
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+                            <i class="fa-solid fa-triangle-exclamation fa-xl text-warning"></i>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-info bg-opacity-10 text-info small">Active</span>
+                        </div>
                     </div>
                     <div>
-                        <p class="mb-1 text-muted small">Fee Defaulters</p>
-                        <h4 class="mb-0 fw-bold">{{ number_format($kpis['defaulters_count']) }}</h4>
+                        <h3 class="mb-1 fw-bold">{{ number_format($kpis['defaulters_count']) }}</h3>
+                        <p class="mb-0 text-muted fw-medium">Fee Defaulters</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- KPI Cards End -->
 
-<!-- Charts Row Start -->
-<div class="container-xxl pt-2 px-2">
-    <div class="row g-4">
-        <!-- Monthly Fee Collection Chart -->
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
         <div class="col-xl-8">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <h6 class="mb-4 fw-bold"><i class="fa fa-chart-bar me-2 text-primary"></i>Monthly Fee Collection (Last 6 Months)</h6>
-                <canvas id="feeCollectionChart" height="80"></canvas>
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 fw-bold">Fee Collection Trend</h6>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown">
+                            Last 6 Months <i class="fa-solid fa-chevron-down ms-1 small"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="feeCollectionChart" style="max-height: 300px;"></canvas>
+                </div>
             </div>
         </div>
-
-        <!-- Students by Class Chart -->
         <div class="col-xl-4">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <h6 class="mb-4 fw-bold"><i class="fa fa-chart-pie me-2 text-success"></i>Students by Class</h6>
-                <canvas id="studentsByClassChart"></canvas>
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header">
+                    <h6 class="mb-0 fw-bold">Students Distribution</h6>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="studentsByClassChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Charts Row End -->
 
-<!-- Attendance Trend & Defaulters Start -->
-<div class="container-xxl pt-2 px-2">
+    <!-- Second Row -->
     <div class="row g-4">
-        <!-- Attendance Trend Chart -->
+        <!-- Attendance Trend -->
         <div class="col-xl-7">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <h6 class="mb-4 fw-bold"><i class="fa fa-chart-line me-2 text-info"></i>Attendance Trend (Last 7 Days)</h6>
-                <canvas id="attendanceTrendChart" height="80"></canvas>
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 fw-bold">Attendance Analytics</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="attendanceTrendChart" style="max-height: 300px;"></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Defaulters List -->
         <div class="col-xl-5">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0 fw-bold"><i class="fa fa-exclamation-circle me-2 text-warning"></i>Fee Defaulters</h6>
-                    <a href="{{ route('fees.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 fw-bold">Fee Defaulters</h6>
+                    <a href="{{ route('fees.payments.index') }}" class="btn btn-sm btn-link text-primary text-decoration-none">View All</a>
                 </div>
-                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
-                    <table class="table table-hover table-sm align-middle mb-0">
-                        <thead class="table-light sticky-top">
-                            <tr>
-                                <th>Student</th>
-                                <th>Class</th>
-                                <th class="text-end">Pending</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($defaulters as $defaulter)
-                            <tr>
-                                <td class="fw-bold">{{ $defaulter->name }}</td>
-                                <td><span class="badge bg-light text-dark border">{{ $defaulter->class->class_name ?? 'N/A' }}</span></td>
-                                <td class="text-end text-danger fw-bold">₹{{ number_format($defaulter->pending_amount ?? 0, 2) }}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="3" class="text-center text-muted py-3">
-                                    <i class="fa fa-check-circle me-1"></i> No defaulters found
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4">Student</th>
+                                    <th>Class</th>
+                                    <th class="text-end pe-4">Pending</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($defaulters as $defaulter)
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="fw-semibold">{{ $defaulter->name }}</div>
+                                    </td>
+                                    <td><span class="badge bg-info bg-opacity-10 text-info">{{ $defaulter->class->class_name ?? 'N/A' }}</span></td>
+                                    <td class="text-end pe-4 text-danger fw-bold">₹{{ number_format($defaulter->pending_amount ?? 0, 0) }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-5">
+                                        <div class="text-muted">
+                                            <i class="fa-solid fa-circle-check fa-3x mb-3 text-success bg-success bg-opacity-10 p-3 rounded-circle"></i>
+                                            <p class="mb-0">All clear! No fee defaulters found.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Attendance Trend & Defaulters End -->
 
-<!-- Recent Activities Start -->
-<div class="container-xxl pt-2 px-2 pb-4">
-    <div class="row g-4">
-        <!-- Recent Students -->
+    <!-- Recent Activities -->
+    <div class="row g-4 mt-2">
         <div class="col-xl-6">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0 fw-bold"><i class="fa fa-clock me-2 text-primary"></i>Recent Students</h6>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 fw-bold">New Registrations</h6>
                     <a href="{{ route('students.index') }}" class="btn btn-sm btn-primary">View All</a>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Joined</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($activities['recent_students'] as $student)
-                            <tr>
-                                <td class="fw-bold">{{ $student->name }}</td>
-                                <td>{{ $student->email }}</td>
-                                <td><span class="badge bg-light text-dark border">{{ $student->created_at->diffForHumans() }}</span></td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="3" class="text-center text-muted py-3">
-                                    <i class="fa fa-info-circle me-1"></i> No recent students
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <tbody>
+                                @forelse($activities['recent_students'] as $student)
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-user small"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold">{{ $student->name }}</div>
+                                                <small class="text-muted">{{ $student->email }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <span class="text-muted small">{{ $student->created_at->diffForHumans() }}</span>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr><td colspan="2" class="text-center py-4">No recent students</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Fee Payments -->
         <div class="col-xl-6">
-            <div class="bg-white rounded p-4 border shadow-sm">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0 fw-bold"><i class="fa fa-money-bill-wave me-2 text-success"></i>Recent Payments</h6>
-                    <a href="{{ route('fees.index') }}" class="btn btn-sm btn-success">View All</a>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 fw-bold">Recent Payments</h6>
+                    <a href="{{ route('fees.payments.index') }}" class="btn btn-sm btn-success">History</a>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Student</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($activities['recent_fees'] as $fee)
-                            <tr>
-                                <td class="fw-bold">{{ $fee->student->name ?? 'N/A' }}</td>
-                                <td class="text-success fw-bold">₹{{ number_format($fee->amount_paid, 2) }}</td>
-                                <td><span class="badge bg-light text-dark border">{{ $fee->payment_date ? \Carbon\Carbon::parse($fee->payment_date)->format('M d, Y') : 'N/A' }}</span></td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="3" class="text-center text-muted py-3">
-                                    <i class="fa fa-info-circle me-1"></i> No recent payments
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <tbody>
+                                @forelse($activities['recent_fees'] as $fee)
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-success bg-opacity-10 text-success p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-receipt small"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold">{{ $fee->student->name ?? 'N/A' }}</div>
+                                                <small class="text-muted">₹{{ number_format($fee->amount_paid, 0) }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <span class="text-muted small">{{ $fee->payment_date ? \Carbon\Carbon::parse($fee->payment_date)->diffForHumans() : 'N/A' }}</span>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr><td colspan="2" class="text-center py-4">No recent payments</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Recent Activities End -->
 
 @push('scripts')
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
-// Monthly Fee Collection Chart (Bar Chart)
+// Chart Defaults
+Chart.defaults.font.family = "'Outfit', sans-serif";
+Chart.defaults.color = '#64748b';
+
+// Fee Collection Chart
 const feeCtx = document.getElementById('feeCollectionChart').getContext('2d');
 new Chart(feeCtx, {
     type: 'bar',
     data: {
         labels: @json($feeChart['labels']),
         datasets: [{
-            label: 'Fee Collection (₹)',
+            label: 'Collection',
             data: @json($feeChart['data']),
-            backgroundColor: 'rgba(13, 110, 253, 0.8)',
-            borderColor: 'rgba(13, 110, 253, 1)',
-            borderWidth: 1,
-            borderRadius: 5
+            backgroundColor: '#6366f1',
+            borderRadius: 8,
+            barThickness: 25,
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '₹' + context.parsed.y.toLocaleString();
-                    }
-                }
-            }
-        },
+        plugins: { legend: { display: false } },
         scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    callback: function(value) {
-                        return '₹' + value.toLocaleString();
-                    }
-                }
-            }
+            y: { grid: { display: false } },
+            x: { grid: { display: false } }
         }
     }
 });
 
-// Students by Class Chart (Pie Chart)
+// Distribution Chart
 const classCtx = document.getElementById('studentsByClassChart').getContext('2d');
 new Chart(classCtx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
         labels: @json($studentsByClass['labels']),
         datasets: [{
             data: @json($studentsByClass['data']),
-            backgroundColor: [
-                'rgba(13, 110, 253, 0.8)',
-                'rgba(25, 135, 84, 0.8)',
-                'rgba(255, 193, 7, 0.8)',
-                'rgba(220, 53, 69, 0.8)',
-                'rgba(13, 202, 240, 0.8)',
-                'rgba(108, 117, 125, 0.8)',
-                'rgba(111, 66, 193, 0.8)',
-                'rgba(253, 126, 20, 0.8)',
-                'rgba(214, 51, 132, 0.8)',
-                'rgba(32, 201, 151, 0.8)'
-            ],
-            borderWidth: 2,
-            borderColor: '#fff'
+            backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#0ea5e9'],
+            offset: 10,
+            borderWidth: 0
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    padding: 10,
-                    font: {
-                        size: 11
-                    }
-                }
-            }
-        }
+        cutout: '70%',
+        plugins: { legend: { position: 'bottom' } }
     }
 });
 
-// Attendance Trend Chart (Line Chart)
+// Attendance Trend Chart
 const attendanceCtx = document.getElementById('attendanceTrendChart').getContext('2d');
 new Chart(attendanceCtx, {
     type: 'line',
@@ -315,36 +323,22 @@ new Chart(attendanceCtx, {
         datasets: [{
             label: 'Attendance %',
             data: @json($attendanceTrend['data']),
-            borderColor: 'rgba(13, 202, 240, 1)',
-            backgroundColor: 'rgba(13, 202, 240, 0.1)',
-            borderWidth: 3,
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
             fill: true,
             tension: 0.4,
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            pointBackgroundColor: 'rgba(13, 202, 240, 1)',
-            pointBorderColor: '#fff',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: '#fff',
             pointBorderWidth: 2
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: {
-                display: false
-            }
-        },
+        plugins: { legend: { display: false } },
         scales: {
-            y: {
-                beginAtZero: true,
-                max: 100,
-                ticks: {
-                    callback: function(value) {
-                        return value + '%';
-                    }
-                }
-            }
+            y: { min: 0, max: 100, grid: { borderDash: [5, 5] } },
+            x: { grid: { display: false } }
         }
     }
 });

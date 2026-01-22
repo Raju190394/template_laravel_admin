@@ -12,33 +12,45 @@
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- DataTables -->
-    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <style>
         :root {
-            --primary: #0d6efd;
-            --secondary: #6c757d;
-            --success: #198754;
-            --info: #0dcaf0;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --light: #f8f9fa;
-            --dark: #212529;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #64748b;
+            --success: #10b981;
+            --info: #0ea5e9;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --sidebar-bg: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Outfit', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            overflow-x: hidden;
         }
 
         /* Smooth Scrolling */
@@ -52,399 +64,259 @@
             top: 0;
             left: 0;
             bottom: 0;
-            width: 250px;
+            width: 280px;
             height: 100vh;
             overflow-y: auto;
-            background: #fff;
-            transition: 0.3s;
-            z-index: 999;
-            border-right: 1px solid #dee2e6;
+            background: var(--sidebar-bg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1050;
+            border-right: 1px solid #e2e8f0;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
         }
 
         .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            width: 4px;
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 3px;
+            background: #cbd5e1;
+            border-radius: 10px;
         }
 
         .sidebar-navbar {
-            background: transparent !important;
+            padding: 1.5rem 1.25rem;
         }
 
         .sidebar-navbar .navbar-brand h3 {
-            font-weight: 600;
-            color: var(--primary) !important;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 0;
         }
 
         .content {
-            width: calc(100% - 250px);
-            margin-left: 250px;
+            width: calc(100% - 280px);
+            margin-left: 280px;
             min-height: 100vh;
-            background: var(--light);
-            transition: 0.3s;
+            background: #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
         }
 
-        .content > nav {
-            flex-shrink: 0;
-        }
-
-        .content > div:last-child {
-            margin-top: auto;
-        }
-
-        /* Responsive Behavior */
-        @media (max-width: 991.98px) {
-            .sidebar {
-                margin-left: -250px;
-            }
-
-            .sidebar.open {
-                margin-left: 0;
-            }
-
-            .content {
-                width: 100%;
-                margin-left: 0;
-            }
-
-            .content.open {
-                margin-left: 250px;
-            }
-        }
-
-        /* Mobile Overlay */
-        @media (max-width: 991.98px) {
-            .sidebar-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 998;
-            }
-
-            .sidebar-overlay.show {
-                display: block;
-            }
-        }
-
-        /*** Navbar ***/
-        .sidebar .navbar .navbar-nav .nav-link {
-            padding: 10px 20px;
-            color: var(--dark);
+        /* Nav Item Styles */
+        .sidebar .nav-link {
+            padding: 12px 20px;
+            margin: 4px 15px;
+            color: #64748b;
             font-weight: 500;
-            border-left: 3px solid transparent;
-            border-radius: 0;
-            outline: none;
-            margin: 2px 0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
             transition: all 0.2s ease;
         }
 
-        .sidebar .navbar .navbar-nav .nav-link:hover {
-            background: #f8f9fa;
-            border-left-color: var(--primary);
+        .sidebar .nav-link i {
+            font-size: 1.1rem;
+            margin-right: 12px;
+            width: 24px;
+            text-align: center;
+            transition: transform 0.2s ease;
         }
 
-        .sidebar .navbar .navbar-nav .nav-link.active {
+        .sidebar .nav-link:hover {
             color: var(--primary);
-            background: #e7f1ff;
-            border-left-color: var(--primary);
+            background: #f5f3ff;
         }
 
-        .sidebar .navbar .navbar-nav .nav-link i {
-            width: 35px;
-            height: 35px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f9fa;
-            border-radius: 6px;
-            transition: .2s;
-            color: var(--dark);
+        .sidebar .nav-link:hover i {
+            transform: translateX(3px);
         }
 
-        .sidebar .navbar .navbar-nav .nav-link:hover i,
-        .sidebar .navbar .navbar-nav .nav-link.active i {
-            background: var(--primary);
+        .sidebar .nav-link.active {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .sidebar .nav-link.active i {
             color: white;
         }
 
-        .navbar .nav-item .dropdown-menu {
-            top: 100%;
-            margin-top: 0;
-            background: #FFFFFF;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        /* Submenu Styling */
+        .dropdown-menu.show {
+            animation: fadeInDown 0.3s ease;
         }
 
-        .sticky-top {
-            top: 0;
-            z-index: 999;
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .content .navbar {
-            background: #fff;
-            border-bottom: 1px solid #dee2e6;
+        .sidebar .dropdown-item {
+            padding: 8px 15px 8px 45px;
+            font-size: 0.9rem;
+            color: #64748b;
+            border-radius: 8px;
+            margin: 2px 15px;
+            transition: all 0.2s;
         }
 
-        .content .navbar .navbar-nav .nav-link {
-            margin-left: 25px;
-            padding: 12px 0;
-            color: var(--dark);
-            outline: none;
-        }
-
-        .content .navbar .navbar-nav .nav-link:hover,
-        .content .navbar .navbar-nav .nav-link.active {
+        .sidebar .dropdown-item:hover, .sidebar .dropdown-item.active {
             color: var(--primary);
+            background: #f5f3ff;
         }
 
-        .content .navbar .sidebar-toggler {
+        /*** Navbar ***/
+        .content .navbar {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            z-index: 1040;
+        }
+
+        .sidebar-toggler {
             width: 40px;
             height: 40px;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            background: #FFFFFF;
-            border-radius: 6px;
-            border: 1px solid #dee2e6;
-            transition: .2s;
-        }
-
-        .content .navbar .sidebar-toggler:hover {
-            background: var(--light);
-        }
-
-        .content .navbar .sidebar-toggler i {
-            font-size: 18px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
             color: var(--dark);
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        /* Responsive Navbar */
-        @media (max-width: 575.98px) {
-            .content .navbar .navbar-nav .nav-link {
-                margin-left: 10px;
-            }
-
-            .content .navbar .dropdown-menu {
-                position: absolute !important;
-                right: 0 !important;
-            }
+        .sidebar-toggler:hover {
+            background: #f1f5f9;
+            color: var(--primary);
         }
 
-        /* Cards */
-        .bg-light {
-            background: #fff !important;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
+        /* Premium Cards */
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            background: white;
         }
 
-        .bg-white {
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
         }
 
-        /* Tables - Responsive */
+        .card-header {
+            background: white;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
         .table {
-            border-radius: 6px;
-            border: 1px solid #dee2e6;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-        .table thead {
-            background: var(--primary);
-            color: white;
-        }
-
-        .table thead tr:first-child th {
-            border-top: 1px solid var(--primary);
+            margin-bottom: 0;
         }
 
         .table thead th {
-            color: white !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            font-weight: 500;
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .table thead th:first-child {
-            border-top-left-radius: 5px;
-        }
-
-        .table thead th:last-child {
-            border-top-right-radius: 5px;
-        }
-
-        .table tbody tr:last-child td:first-child {
-            border-bottom-left-radius: 5px;
-        }
-
-        .table tbody tr:last-child td:last-child {
-            border-bottom-right-radius: 5px;
+        .table tbody td {
+            padding: 1rem 1.5rem;
+            vertical-align: middle;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         .table-hover tbody tr:hover {
-            background-color: #f8f9fa;
+            background-color: #f8fafc;
         }
 
-        .table-bordered {
-            border: 1px solid #dee2e6 !important;
-        }
-
-        .table-bordered thead th {
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
-        }
-
-        /* Fix for DataTables */
-        table.dataTable {
-            border: 1px solid #dee2e6 !important;
-            border-collapse: separate !important;
-        }
-
-        table.dataTable thead th {
-            border-top: 1px solid var(--primary) !important;
-        }
-
-        /* Mobile Table Responsiveness */
-        @media (max-width: 767.98px) {
-            .table-responsive {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .table thead {
-                font-size: 0.875rem;
-            }
-
-            .table tbody {
-                font-size: 0.875rem;
-            }
-        }
-
-        /* Buttons */
+        /* Premium Buttons */
         .btn {
-            border-radius: 6px;
+            border-radius: 10px;
+            padding: 0.6rem 1.25rem;
             font-weight: 500;
+            transition: all 0.2s;
         }
 
-        /* Responsive Button Groups */
-        @media (max-width: 575.98px) {
-            .btn-group {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .btn-group .btn {
-                margin-left: 0 !important;
-                margin-top: 5px;
-            }
-
-            .btn-group .btn:first-child {
-                margin-top: 0;
-            }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
         }
 
-        /* Alert */
-        .alert {
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        }
+
+        /* Badge Styling */
+        .badge {
+            padding: 0.5em 0.8em;
             border-radius: 6px;
+            font-weight: 600;
         }
 
-        /* Form - Responsive */
-        .form-control,
-        .form-select {
-            border-radius: 6px;
-        }
+        .badge.bg-success { background-color: #dcfce7 !important; color: #166534 !important; }
+        .badge.bg-danger { background-color: #fee2e2 !important; color: #991b1b !important; }
+        .badge.bg-info { background-color: #e0f2fe !important; color: #075985 !important; }
+        .badge.bg-warning { background-color: #fef3c7 !important; color: #92400e !important; }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-
-        .form-floating > .form-control:focus ~ label {
-            color: var(--primary);
-        }
-
-        /* Mobile Form Optimization */
-        @media (max-width: 767.98px) {
-            .form-floating {
-                margin-bottom: 1rem;
-            }
-
-            .row.g-2 > * {
-                padding-right: calc(var(--bs-gutter-x) * .5);
-                padding-left: calc(var(--bs-gutter-x) * .5);
-            }
-        }
-
-        /* Container Responsiveness */
-        .container-xxl {
-            max-width: 100% !important;
-            width: 100% !important;
-            padding-right: 1rem;
-            padding-left: 1rem;
-        }
-
+        /* Responsive Behavior */
         @media (max-width: 991.98px) {
-            .container-xxl {
-                padding-right: 1rem;
-                padding-left: 1rem;
+            .sidebar { margin-left: -280px; }
+            .sidebar.open { margin-left: 0; }
+            .content { width: 100%; margin-left: 0; }
+            .content.open { margin-left: 280px; }
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(15, 23, 42, 0.4);
+                backdrop-filter: blur(4px);
+                z-index: 1045;
             }
+            .sidebar-overlay.show { display: block; }
         }
 
-        @media (max-width: 575.98px) {
-            .container-xxl {
-                padding-right: 0.5rem;
-                padding-left: 0.5rem;
-            }
-
-            .pt-2 {
-                padding-top: 0.5rem !important;
-            }
-
-            .px-2 {
-                padding-right: 0.5rem !important;
-                padding-left: 0.5rem !important;
-            }
+        /* Form Controls */
+        .form-control, .form-select {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.2s;
         }
 
-        /* DataTables Responsive */
-        @media (max-width: 767.98px) {
-            div.dataTables_wrapper div.dataTables_length,
-            div.dataTables_wrapper div.dataTables_filter {
-                text-align: left;
-            }
-
-            div.dataTables_wrapper div.dataTables_paginate {
-                text-align: center;
-            }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
-        /* Stats Cards Mobile */
-        @media (max-width: 767.98px) {
-            .col-sm-6.col-xl-4 {
-                margin-bottom: 1rem;
-            }
-        }
-
-        /* Mobile Footer */
-        @media (max-width: 767.98px) {
-            .footer .row > div {
-                text-align: center !important;
-                margin-bottom: 0.5rem;
-            }
+        /* Notifications Dropdown */
+        .dropdown-menu-end {
+            border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 0.5rem;
         }
     </style>
 </head>
@@ -457,30 +329,34 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar sidebar-navbar">
-                <a href="{{ url('/') }}" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Test</h3>
+                <a href="{{ url('/dashboard') }}" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa-solid fa-graduation-cap me-2"></i>EduSmart</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" style="width: 12px; height: 12px;"></div>
+                        <div class="rounded-circle overflow-hidden bg-primary d-flex align-items-center justify-content-center text-white font-weight-bold" style="width: 45px; height: 45px;">
+                            {{ substr(Auth::user()->name, 0, 1) }}
+                        </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0 text-dark">{{ Auth::user()->name }}</h6>
-                        <span class="text-muted">Admin</span>
+                        <h6 class="mb-0 text-dark fw-bold">{{ Auth::user()->name }}</h6>
+                        <small class="text-muted">{{ ucfirst(Auth::user()->role) }}</small>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     @if(Auth::user()->role === 'parent')
-                        <a href="{{ route('parent.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('parent.dashboard') ? 'active' : '' }}"><i class="fa fa-home me-2"></i>Parent Dashboard</a>
-                        <a href="{{ route('mailbox.index') }}" class="nav-item nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa fa-envelope me-2"></i>Mailbox</a>
+                        <a href="{{ route('parent.dashboard') }}" class="nav-link {{ request()->routeIs('parent.dashboard') ? 'active' : '' }}"><i class="fa-solid fa-house"></i><span>Parent Portal</span></a>
+                        <a href="{{ route('mailbox.index') }}" class="nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa-solid fa-envelope"></i><span>Mailbox</span></a>
                     @else
-                        <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
                     @endif
                     
                     @if(Auth::user()->role === 'admin' || Auth::user()->role === 'staff')
-                        <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('master.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
-                            <i class="fa fa-cog me-2"></i>Master Module
-                        </a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('master.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-shapes"></i><span>Academic Master</span>
+                            </a>
                         <div class="dropdown-menu bg-transparent border-0 ps-4 py-0 {{ request()->routeIs('master.*') ? 'show' : '' }}">
                             <a href="{{ route('master.school-settings.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.school-settings.*') ? 'active' : '' }}">School Details</a>
                             <a href="{{ route('master.classes.index') }}" class="dropdown-item nav-link {{ request()->routeIs('master.classes.*') ? 'active' : '' }}">Classes</a>
@@ -499,20 +375,20 @@
                         </div>
                     </div>
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('fees.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
-                            <i class="fa fa-money-check-alt me-2"></i>Fees Management
-                        </a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('fees.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-wallet"></i><span>Fees & Finance</span>
+                            </a>
                         <div class="dropdown-menu bg-transparent border-0 ps-4 py-0 {{ request()->routeIs('fees.*') ? 'show' : '' }}">
                             <a href="{{ route('fees.payments.create') }}" class="dropdown-item nav-link {{ request()->routeIs('fees.payments.create') ? 'active' : '' }}">Collect Fee</a>
                             <a href="{{ route('fees.payments.index') }}" class="dropdown-item nav-link {{ request()->routeIs('fees.payments.index') ? 'active' : '' }}">Payment History</a>
                         </div>
                     </div>
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('staff*') || request()->is('attendance*') ? 'active' : '' }}" data-bs-toggle="dropdown">
-                            <i class="fa fa-users-cog me-2"></i>Staff Module
-                        </a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {{ request()->is('staff*') || request()->is('attendance*') ? 'active' : '' }}" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-user-tie"></i><span>Human Resources</span>
+                            </a>
                         <div class="dropdown-menu bg-transparent border-0 ps-4 py-0 {{ request()->is('staff*') || request()->is('attendance*') ? 'show' : '' }}">
                             <a href="{{ route('staff.index') }}" class="dropdown-item nav-link {{ request()->routeIs('staff.index') ? 'active' : '' }}">Staff List</a>
                             <a href="{{ route('attendance.mark') }}" class="dropdown-item nav-link {{ request()->routeIs('attendance.mark') ? 'active' : '' }}">Face Attendance</a>
@@ -520,10 +396,10 @@
                         </div>
                     </div>
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('library.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
-                            <i class="fa fa-book me-2"></i>Library Module
-                        </a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('library.*') ? 'active' : '' }}" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-book-open-reader"></i><span>Library</span>
+                            </a>
                         <div class="dropdown-menu bg-transparent border-0 ps-4 py-0 {{ request()->routeIs('library.*') ? 'show' : '' }}">
                             <a href="{{ route('library.books.index') }}" class="dropdown-item nav-link {{ request()->routeIs('library.books.*') ? 'active' : '' }}">Book List</a>
                             <a href="{{ route('library.issues.index') }}" class="dropdown-item nav-link {{ request()->routeIs('library.issues.*') ? 'active' : '' }}">Issue / Return</a>
@@ -533,13 +409,13 @@
                     @endif
 
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('users.index') }}" class="nav-item nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa fa-user me-2"></i>Users</a>
-                        <a href="{{ route('students.index') }}" class="nav-item nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}"><i class="fa fa-user-graduate me-2"></i>Students</a>
-                        <a href="{{ route('certificates.index') }}" class="nav-item nav-link {{ request()->routeIs('certificates.*') ? 'active' : '' }}"><i class="fa fa-certificate me-2"></i>Certificates</a>
+                        <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa-solid fa-users-gear"></i><span>User Access</span></a>
+                        <a href="{{ route('students.index') }}" class="nav-link {{ request()->routeIs('students.*') ? 'active' : '' }}"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                        <a href="{{ route('certificates.index') }}" class="nav-link {{ request()->routeIs('certificates.*') ? 'active' : '' }}"><i class="fa-solid fa-award"></i><span>Certificates</span></a>
                     @endif
 
                     @if(Auth::user()->role !== 'parent')
-                        <a href="{{ route('mailbox.index') }}" class="nav-item nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa fa-envelope me-2"></i>Mailbox</a>
+                        <a href="{{ route('mailbox.index') }}" class="nav-link {{ request()->routeIs('mailbox.*') ? 'active' : '' }}"><i class="fa-solid fa-inbox"></i><span>Mailbox</span></a>
                     @endif
                 </div>
             </nav>

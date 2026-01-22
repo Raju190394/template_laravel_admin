@@ -27,6 +27,11 @@ class Classes extends Model
         return $this->hasMany(FeeStructure::class, 'class_id');
     }
 
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'class_id');
+    }
+
     // Scope for active classes
     public function scopeActive($query)
     {

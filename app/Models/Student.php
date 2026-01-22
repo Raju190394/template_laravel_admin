@@ -34,6 +34,11 @@ class Student extends Model
         return $this->hasMany(StudentSession::class);
     }
 
+    public function fees()
+    {
+        return $this->hasMany(FeePayment::class, 'student_id');
+    }
+
     public function scopeActive($query)
     {
         // Assuming all students are active for now, or you can add an is_active column
